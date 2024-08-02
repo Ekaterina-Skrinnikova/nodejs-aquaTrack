@@ -28,14 +28,14 @@ export const updateWaterVolumeItem = async (
   };
 };
 
-export const deleteWaterVolumeItem = async (waterVolumeItemId) => {
+export const deleteWaterVolumeItem = async (waterVolumeItemId, userId) => {
   const waterVolumeItem = await WaterVolumeItemsCollection.findOneAndDelete({
     _id: waterVolumeItemId,
   });
   return waterVolumeItem;
 };
 
-export const getWaterVolumeItemsByDay = async (inputDate) => {
+export const getWaterVolumeItemsByDay = async (inputDate, userId) => {
   const [day, month, year] = inputDate.split('-').map(Number);
 
   const startOfDay = new Date(year, month - 1, day, 0, 0, 0, 0);
@@ -43,10 +43,11 @@ export const getWaterVolumeItemsByDay = async (inputDate) => {
 
   return await WaterVolumeItemsCollection.find({
     createdAt: { $gte: startOfDay, $lt: endOfDay },
+    userId,
   });
 };
 
-export const getWaterVolumeItemsByMonth = async (inputDate) => {
+export const getWaterVolumeItemsByMonth = async (inputDate, userId) => {
   const [month, year] = inputDate.split('-').map(Number);
 
   const startOfMonth = new Date(year, month - 1, 1);
@@ -54,5 +55,6 @@ export const getWaterVolumeItemsByMonth = async (inputDate) => {
 
   return await WaterVolumeItemsCollection.find({
     createdAt: { $gte: startOfMonth, $lt: endOfMonth },
+    userId,
   });
 };

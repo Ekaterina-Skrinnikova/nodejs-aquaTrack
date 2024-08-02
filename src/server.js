@@ -1,6 +1,7 @@
 import express from 'express';
 import pino from 'pino-http'; //для форматування виводу у термінал
 import cors from 'cors'; //для безпеки
+import cookieParser from 'cookie-parser'; //доступ до кукі
 import { env } from './utils/env.js';
 import router from './routers/index.js';
 import { errorHandler } from './middlewares/errorHandler.js';
@@ -13,6 +14,7 @@ export const startServer = () => {
 
   app.use(cors());
   app.use(express.json());
+  app.use(cookieParser);
   app.use(
     pino({
       transport: {

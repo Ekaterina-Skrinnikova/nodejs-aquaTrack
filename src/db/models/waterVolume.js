@@ -1,8 +1,9 @@
 import { model, Schema } from 'mongoose';
+import { updateTime } from '../../utils/updateTime.js';
 
 const waterVolumeItemSchema = new Schema(
   {
-    time: { type: String, requared: true },
+    time: { type: String, requared: true, default: updateTime },
 
     volume: { type: Number, requared: true },
 
